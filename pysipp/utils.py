@@ -1,5 +1,5 @@
 import logging
-import imp  # XXX py2.7
+import sys
 import tempfile
 import os
 import inspect
@@ -10,6 +10,18 @@ LOG_FORMAT = (
 )
 
 DATE_FORMAT = "%b %d %H:%M:%S"
+
+if sys.version_info[:2] >= (3, 3):
+    from importlib.machinery import SourceFileLoader
+
+    def load_source(name, path):
+        return SourceFileLoader("mod", path).load_module()
+
+else:
+    import imp
+
+    def load_source(name, path):
+        return imp.load_source("mod", path)
 
 
 def get_logger():
@@ -32,7 +44,7 @@ def load_mod(path, name=None):
     """Load a source file as a module"""
     name = name or os.path.splitext(os.path.basename(path))[0]
     # load module sources
-    return imp.load_source(name, path)
+    return load_source(name, path)
 
 
 def iter_data_descrs(cls):
