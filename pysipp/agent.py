@@ -1,6 +1,7 @@
 """
 Wrappers for user agents which apply sensible cmdline arg defaults
 """
+from __future__ import absolute_import
 from os import path
 import re
 import itertools
@@ -9,6 +10,7 @@ from copy import deepcopy
 from distutils import spawn
 from collections import namedtuple, OrderedDict
 from . import command, plugin, utils
+from six.moves import zip
 
 log = utils.get_logger()
 
@@ -242,7 +244,7 @@ def Scenario(agents, **kwargs):
         _defs.update(user_defaults)
 
     # this gives us scen.<param> attribute access to scen.defaults
-    utils.DictProxy(_defs, UserAgent.keys(), cls=scentype)
+    utils.DictProxy(_defs, list(UserAgent.keys()), cls=scentype)
     return scentype(agents, _defs, **kwargs)
 
 
@@ -264,7 +266,7 @@ class ScenarioType(object):
     ):
         # agents iterable in launch-order
         self._agents = agents
-        ua_attrs = UserAgent.keys()
+        ua_attrs = list(UserAgent.keys())
 
         # default settings
         self._defaults = defaults
@@ -361,7 +363,7 @@ class ScenarioType(object):
             sub-dicts
             """
             merged = deepcopy(dicts[0])
-            for key, val in itertools.chain(*[d.items() for d in dicts[1:]]):
+            for key, val in itertools.chain(*[list(d.items()) for d in dicts[1:]]):
                 if isinstance(val, dict):
                     merged.setdefault(key, val).update(val)
                 else:

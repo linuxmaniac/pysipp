@@ -1,6 +1,7 @@
 """
 auto-networking plugin
 """
+from __future__ import absolute_import
 import socket
 from pysipp import plugin
 

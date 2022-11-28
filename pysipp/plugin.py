@@ -1,6 +1,7 @@
 """
 `pluggy` plugin and hook management
 """
+from __future__ import absolute_import
 import pluggy
 import contextlib
 from . import hookspec

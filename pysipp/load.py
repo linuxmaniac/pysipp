@@ -1,9 +1,11 @@
 """
 Load files from scenario directories
 """
+from __future__ import absolute_import
 import glob
 import os
 from . import utils
+from six.moves import filter
 
 log = utils.get_logger()
 
@@ -36,7 +38,7 @@ def iter_scen_dirs(rootdir, dir_filter=lambda dir_name: dir_name):
 
         # filter the path dirs to traverse as we recurse the file system
         # (only use if you know what you're doing)
-        dirnames[:] = filter(dir_filter, dirnames)
+        dirnames[:] = list(filter(dir_filter, dirnames))
 
         # scan for files
         path = os.path.abspath(path)

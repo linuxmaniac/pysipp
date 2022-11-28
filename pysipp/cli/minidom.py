@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import functools
 from xml.dom import minidom
 from xml.dom.minidom import getDOMImplementation, parse, Node  # noqa
@@ -68,7 +69,7 @@ def monkeypatch_element_xml(self, writer, indent="", addindent="", newl=""):
     writer.write("{}<{}".format(indent, self.tagName))
 
     attrs = self._get_attributes()
-    a_names = sorted(attrs.keys(), key=AttributeSorter)
+    a_names = sorted(list(attrs.keys()), key=AttributeSorter)
 
     for a_name in a_names:
         writer.write(' {}="'.format(a_name))

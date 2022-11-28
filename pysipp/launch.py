@@ -1,6 +1,7 @@
 """
 Launchers for invoking SIPp user agents
 """
+from __future__ import absolute_import
 import subprocess
 import os
 import shlex
@@ -11,6 +12,7 @@ import time
 from . import utils
 from pprint import pformat
 from collections import OrderedDict, namedtuple
+from six.moves import range
 
 log = utils.get_logger()
 

@@ -1,6 +1,7 @@
 """
 hookspec defs
 """
+from __future__ import absolute_import
 import pluggy
 
 hookspec = pluggy.HookspecMarker("pysipp")

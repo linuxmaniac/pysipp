@@ -1,6 +1,7 @@
 """
 reporting for writing SIPp log files to the console
 """
+from __future__ import absolute_import
 import time
 from os import path
 from collections import OrderedDict

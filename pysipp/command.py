@@ -1,6 +1,7 @@
 """
 Command string rendering
 """
+from __future__ import absolute_import
 import string
 import socket
 from collections import OrderedDict

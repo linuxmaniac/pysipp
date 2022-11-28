@@ -18,11 +18,13 @@
 """
 pysipp - a python wrapper for launching SIPp
 """
+from __future__ import absolute_import
 import sys
 from os.path import dirname
 from . import launch, report, plugin, netplug, agent
 from .load import iter_scen_dirs
 from .agent import client, server
+from six.moves import zip
 
 
 class SIPpFailure(RuntimeError):
@@ -208,7 +210,7 @@ def pysipp_run_protocol(scen, runner, block, timeout, raise_exc):
         and perform error and logfile reporting.
         """
         cmds2procs = cmds2procs or runner.get(timeout=timeout)
-        agents2procs = list(zip(agents, cmds2procs.values()))
+        agents2procs = list(zip(agents, list(cmds2procs.values())))
         msg = report.err_summary(agents2procs)
         if msg:
             # report logs and stderr
